@@ -1,0 +1,9 @@
+*.bin
+*.build
+*dist
+*.egg-info
+.mypy_cache
+__pycache__
+.pytest_cache
+.venv
+*.xml

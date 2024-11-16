@@ -1,0 +1,14 @@
+[project]
+name = "uv-nuitka-template"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.uv]
+dev-dependencies = [
+    "black>=24.10.0",
+    "pre-commit>=4.0.1",
+    "pytest>=8.3.3",
+]
