@@ -1,10 +1,10 @@
 import pandas as pd
 from pathlib import Path
-from pkg.pkg import render_nb, render_pdf
+from eznbtemplater.eznbtemplater import render_nb, render_pdf
 
 
 def test_markdown_pdf() -> None:
-    template_path: Path = Path("pkg/templates/calculation_note.ipynb")
+    template_path: Path = Path("eznbtemplater/templates/calculation_note.ipynb")
     assert template_path.exists()
 
     output_path: Path = Path("tests/test_markdown_nb.pdf")
@@ -20,7 +20,7 @@ def test_markdown_pdf() -> None:
 
 
 def test_markdown_nb() -> None:
-    template_path: Path = Path("pkg/templates/calculation_note.ipynb")
+    template_path: Path = Path("eznbtemplater/templates/calculation_note.ipynb")
     assert template_path.exists()
 
     output_path: Path = Path("tests/test_markdown_nb.ipynb")
@@ -36,7 +36,7 @@ def test_markdown_nb() -> None:
 
 
 def test_latex_pdf() -> None:
-    template_path: Path = Path("pkg/templates/calculation_note.ipynb")
+    template_path: Path = Path("eznbtemplater/templates/calculation_note.ipynb")
     assert template_path.exists()
 
     output_path: Path = Path("tests/test_latex_nb.pdf")
@@ -52,7 +52,7 @@ def test_latex_pdf() -> None:
 
 
 def test_pandas_pdf() -> None:
-    template_path: Path = Path("pkg/templates/calculation_note.ipynb")
+    template_path: Path = Path("eznbtemplater/templates/calculation_note.ipynb")
     assert template_path.exists()
 
     output_path: Path = Path("tests/test_pandas.pdf")

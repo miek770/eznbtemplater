@@ -1,5 +1,5 @@
 [project]
-name = "nbtemplate"
+name = "eznbtemplater"
 version = "0.1.0"
 description = "Generate PDF and Jupyter Notebook files from a Notebook template"
 readme = "README.md"
@@ -9,11 +9,22 @@ dependencies = [
     "nbformat>=5.10.4",
 ]
 
+packages = [
+    { include = "eznbtemplater" },
+]
+include = ["eznbtemplater/templates/*"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [tool.uv]
 dev-dependencies = [
     "black>=24.10.0",
+    "pandas-stubs>=2.2.3.241009",
     "pandas>=2.2.3",
     "pre-commit>=4.0.1",
     "pytest>=8.3.3",
     "tabulate>=0.9.0",
 ]
+package = true

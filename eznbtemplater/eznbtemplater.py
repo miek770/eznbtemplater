@@ -50,7 +50,7 @@ def render_pdf(
     # Use nbconvert to convert the temporary notebook to a PDF
     pdf_exporter = PDFExporter()
     pdf_exporter.exclude_input = True  # Example option to exclude input cells
-    pdf_body, resources = pdf_exporter.from_filename(transit_filename)
+    pdf_body, resources = pdf_exporter.from_filename(transit_filename.as_posix())
 
     # Save the generated PDF to the output path
     with open(output_path, "wb") as output_file:
@@ -78,7 +78,3 @@ def _process_template(
                     cell.cell_type = kwargs[f"{key}_cell_type"]
 
     return nb
-
-
-def main(name: str) -> str:
-    return f"Hello {name}!"
