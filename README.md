@@ -1,12 +1,14 @@
 # eznbtemplater
 
-Generate PDF and [Jupyter Notebook](https://jupyter.org/) files from a notebook template (`.ipynb` file).
+As in ***easy notebook templater***.
 
-I made this small and simple library to facilitate the creation of professionnal looking reports and calculation notes programatically, without having to learn extensive templating engines or mess with more [LaTeX](https://www.latex-project.org/) than desired. My previous attempts of accomplishing this goal involved using existing packages that did not yield satisfactory results for [pandas DataFrames](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
+Generates PDF and [Jupyter Notebook](https://jupyter.org/) files from a notebook template (`.ipynb` file).
+
+I made this small and simple library to facilitate the creation of professionnal looking reports and calculation notes programatically, without having to learn extensive templating engines or mess with more [LaTeX](https://www.latex-project.org/) than desired. My previous attempts of accomplishing this goal involved using existing packages that did not yield satisfactory results for [pandas DataFrames](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html). This one does!
 
 ## Installation
 
-Install the package from [PyPI](https://pypi.org/) with `pip` using:
+Install the package from [PyPI](https://pypi.org/) with [pip](https://pypi.org/project/pip/) using:
 
 ```
 pip install eznbtemplater

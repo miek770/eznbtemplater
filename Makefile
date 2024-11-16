@@ -4,7 +4,10 @@ VERSION = $(shell grep '^version =' pyproject.toml | sed -E 's/version = "(.*)"/
 info:
 	@echo $(NAME), version $(VERSION)
 
+publish:
+	uv run twine upload -r pypi dist/*
+
 tests:
 	uv run python -m pytest
 
-.PHONY: info tests
+.PHONY: info publish tests
