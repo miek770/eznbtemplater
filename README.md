@@ -16,7 +16,7 @@ pip install eznbtemplater
 
 ### Additional Requirements
 
-A fully functional [LaTeX environnement](https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/nbextensions/latex_envs/README.html) must be available to [nbconvert](https://nbconvert.readthedocs.io/en/latest/) on your system; instructions vary. Please refer these two links if your [LaTeX](https://www.latex-project.org/) conversion fails.
+A fully functional [LaTeX environnement](https://nbconvert.readthedocs.io/en/latest/install.html#installing-tex) must be available to [nbconvert](https://nbconvert.readthedocs.io/en/latest/) on your system; instructions vary. Please refer these two links if your [LaTeX](https://www.latex-project.org/) conversion fails.
 
 ## Usage
 
