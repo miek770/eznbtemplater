@@ -70,7 +70,7 @@ render_pdf(
 
 Here is the PDF result (margins were cropped for this picture, and the `{{introduction}}`, `{{inputs}}`, `{{conclusion}}` and `{{references}}` appear without their curly braces because they weren't replaced in the example):
 
-![](media/test_pandas_pdf.png)
+![example](https://raw.githubusercontent.com/miek770/eznbtemplater/refs/heads/main/media/test_pandas_pdf.png)
 
 See [tests/test_renderers.py](tests/test_renderers.py) for a few additional examples.
 
@@ -83,6 +83,8 @@ Contributions are welcome; please:
 - Run `uv run pre-commit install` to active the pre-commit hooks, including [black](https://github.com/psf/black).
 - Ensure [pytest](https://docs.pytest.org/en/stable/) runs without failures with `make tests`.
 - Be nice.
+
+The source code is hosted at [https://github.com/miek770/eznbtemplater](https://github.com/miek770/eznbtemplater).
 
 ## License
 
