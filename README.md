@@ -20,20 +20,21 @@ A fully functional [LaTeX environnement](https://nbconvert.readthedocs.io/en/lat
 
 ## Usage
 
-The package provides 2 templater functions: `render_nb` and `render_pdf`. Both work the same way; a [Jupyter Notebook](https://jupyter.org/) template must be provided (`.ipynb` file), the output path must be specified and keywords (identified as `{{keyword}}` in the template) can be provided with their type to update the template.
+The package provides 2 templater functions: `render_nb` and `render_pdf`. Both work the same way; a [Jupyter Notebook](https://jupyter.org/) template must be provided (`.ipynb` file or `nbformat.NotebookNode` object), the output path must be specified and keywords (identified as `{{keyword}}` in the template) can be provided with their type to update the template.
 
 Here is `render_pdf`'s function definition:
 
 ```python
 def render_pdf(
     *,
-    template_path: Path,
     output_path: Path,
+    template_nb: Optional[nbformat.NotebookNode] = None,
+    template_path: Optional[Path] = None,
     **kwargs,
 ):
 ```
 
-Any number of keyword arguments can be provided to match and replace `{{keyword}}` fields in the [Jupyter Notebook](https://jupyter.org/) template (`.ipynb` file). If desired, a keyword argument with the same name plus `_cell_type` can be provided to change the resulting notebook cell type, e.g.: to `markdown`.
+Any number of keyword arguments can be provided to match and replace `{{keyword}}` fields in the [Jupyter Notebook](https://jupyter.org/) template (`.ipynb` file or `nbformat.NotebookNode` object). If desired, a keyword argument with the same name plus `_cell_type` can be provided to change the resulting notebook cell type, e.g.: to `markdown`.
 
 ### Example
 
@@ -71,6 +72,34 @@ render_pdf(
 Here is the PDF result (margins were cropped for this picture, and the `{{introduction}}`, `{{inputs}}`, `{{conclusion}}` and `{{references}}` appear without their curly braces because they weren't replaced in the example):
 
 ![example](https://raw.githubusercontent.com/miek770/eznbtemplater/refs/heads/main/media/test_pandas_pdf.png)
+
+This is the `test_nb_programatically()` test from [tests/test_nb_programatically.py](tests/test_nb_programatically.py); it works with a notebook template created with [nbformat](https://pypi.org/project/nbformat/) inspired by [this example](https://gist.github.com/fperez/9716279) instead of a notebook file:
+
+```python
+from eznbtemplater.eznbtemplater import render_nb
+import nbformat as nbf
+from pathlib import Path
+
+
+def test_nb_programatically() -> None:
+    nb: nbf.NotebookNode = nbf.v4.new_notebook()
+    nb["cells"] = [
+        nbf.v4.new_raw_cell(r"\renewcommand{\contentsname}{Table of Contents}"),
+        nbf.v4.new_raw_cell(r"\tableofcontents"),
+        nbf.v4.new_markdown_cell("# Introduction"),
+        nbf.v4.new_markdown_cell("{{introduction}}"),
+    ]
+
+    output_path: Path = Path("tests/test_nb_programatically.ipynb")
+
+    introduction: str = "This is a ***test***, don't mind me."
+    render_nb(
+        template_nb=nb,
+        output_path=output_path,
+        introduction=introduction,
+    )
+    assert output_path.exists()
+```
 
 See [tests/test_renderers.py](tests/test_renderers.py) for a few additional examples.
 

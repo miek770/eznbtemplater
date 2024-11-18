@@ -1,51 +1,61 @@
-from nbconvert.exporters import LatexExporter
-import nbformat
-from pathlib import Path
-from typing import Any
-
-
-import tempfile
-from pathlib import Path
-from typing import Any
-import nbformat
 from nbconvert import PDFExporter
+import nbformat as nbf
+from pathlib import Path
+from typing import Any, Optional
 
 
 def render_nb(
     *,
-    template_path: Path,
     output_path: Path,
+    template_nb: Optional[nbf.NotebookNode] = None,
+    template_path: Optional[Path] = None,
     **kwargs,
 ):
+    assert template_nb is not None or template_path is not None
 
     # Replace {{keys}} in the template
-    nb: Any = _process_template(
-        template_path=template_path,
-        **kwargs,
-    )
+    nb: Any
+    if template_nb is not None:
+        nb = _process_template(
+            template_nb=template_nb,
+            **kwargs,
+        )
+    elif template_path is not None:
+        nb = _process_template(
+            template_path=template_path,
+            **kwargs,
+        )
 
     # Write the modified notebook to a temporary file
     with open(output_path, "w", encoding="utf-8") as output_file:
-        nbformat.write(nb, output_file)
+        nbf.write(nb, output_file)
 
 
 def render_pdf(
     *,
-    template_path: Path,
     output_path: Path,
+    template_nb: Optional[nbf.NotebookNode] = None,
+    template_path: Optional[Path] = None,
     **kwargs,
 ):
 
     # Replace {{keys}} in the template
-    nb: Any = _process_template(
-        template_path=template_path,
-        **kwargs,
-    )
+    nb: Any
+    if template_nb is not None:
+        nb = _process_template(
+            template_nb=template_nb,
+            **kwargs,
+        )
+    elif template_path is not None:
+        nb = _process_template(
+            template_path=template_path,
+            **kwargs,
+        )
 
     # Write the modified notebook to a transition file
     transit_filename: Path = output_path.with_suffix(".ipynb")
     with open(transit_filename, mode="w", encoding="utf-8") as output_file:
-        nbformat.write(nb, output_file)
+        nbf.write(nb, output_file)
 
     # Use nbconvert to convert the temporary notebook to a PDF
     pdf_exporter = PDFExporter()
@@ -58,13 +68,19 @@ def render_pdf(
 
 
 def _process_template(
-    template_path: Path,
+    template_nb: Optional[nbf.NotebookNode] = None,
+    template_path: Optional[Path] = None,
     **kwargs,
 ) -> Any:
+    assert template_nb is not None or template_path is not None
 
     # Read the template notebook
-    with open(template_path, "r", encoding="utf-8") as template_file:
-        nb: Any = nbformat.read(template_file, as_version=4)
+    nb: Any
+    if template_nb is not None:
+        nb = template_nb
+    elif template_path is not None:
+        with open(template_path, "r", encoding="utf-8") as template_file:
+            nb = nbf.read(template_file, as_version=4)
 
     # Replace placeholders in the notebook
     for cell in nb.cells:
