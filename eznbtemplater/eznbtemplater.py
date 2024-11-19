@@ -54,13 +54,13 @@ def render_pdf(
 
     # Write the modified notebook to a transition file
     transit_filename: Path = output_path.with_suffix(".ipynb")
-    with open(transit_filename, mode="w", encoding="utf-8") as output_file:
+    with open(transit_filename.as_posix(), mode="w", encoding="utf-8") as output_file:
         nbf.write(nb, output_file)
 
     # Use nbconvert to convert the temporary notebook to a PDF
     pdf_exporter = PDFExporter()
     pdf_exporter.exclude_input = True  # Example option to exclude input cells
-    pdf_body, resources = pdf_exporter.from_filename(transit_filename.as_posix())
+    pdf_body, _ = pdf_exporter.from_filename(transit_filename.as_posix())
 
     # Save the generated PDF to the output path
     with open(output_path, "wb") as output_file:

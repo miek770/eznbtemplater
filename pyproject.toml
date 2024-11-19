@@ -1,6 +1,6 @@
 [project]
 name = "eznbtemplater"
-version = "0.1.3"
+version = "0.1.4"
 authors = [
     { name="Michel Lavoie", email="lavoie.michel@gmail.com" },
 ]
@@ -16,6 +16,10 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
+packages = [
+    { include = "eznbtemplater" },
+]
+include = ["eznbtemplater/templates/*"]
 
 [project.urls]
 homepage = "https://github.com/miek770/eznbtemplater"
@@ -24,9 +28,6 @@ issues = "https://github.com/miek770/eznbtemplater/issues"
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
-
-[tool.hatch.build]
-include = ["eznbtemplater/templates/*"]
 
 [tool.uv]
 dev-dependencies = [
