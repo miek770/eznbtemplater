@@ -1,6 +1,6 @@
 [project]
 name = "eznbtemplater"
-version = "0.1.4"
+version = "0.1.5"
 authors = [
     { name="Michel Lavoie", email="lavoie.michel@gmail.com" },
 ]

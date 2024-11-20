@@ -38,6 +38,8 @@ Any number of keyword arguments can be provided to match and replace `{{keyword}
 
 ### Example
 
+#### From Static Template File
+
 This is the `test_pandas_pdf()` test from [tests/test_renderers.py](tests/test_renderers.py); it replaces the `{{calculations}}` keyword with a [pandas DataFrame](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html) to generate a PDF report.
 
 ```python
@@ -73,7 +75,9 @@ Here is the PDF result (margins were cropped for this picture, and the `{{introd
 
 ![example](https://raw.githubusercontent.com/miek770/eznbtemplater/refs/heads/main/media/test_pandas_pdf.png)
 
-This is the `test_nb_programatically()` test from [tests/test_nb_programatically.py](tests/test_nb_programatically.py); it works with a notebook template created with [nbformat](https://pypi.org/project/nbformat/) inspired by [this example](https://gist.github.com/fperez/9716279) instead of a notebook file:
+#### From Dynamically Defined Template
+
+This is the `test_nb_programatically()` test from [tests/test_nb_programatically.py](tests/test_nb_programatically.py); it works with a notebook template created with [nbformat](https://pypi.org/project/nbformat/), inspired by [this example](https://gist.github.com/fperez/9716279), instead of a static notebook template file:
 
 ```python
 from eznbtemplater.eznbtemplater import render_nb
@@ -81,25 +85,25 @@ import nbformat as nbf
 from pathlib import Path
 
 
-def test_nb_programatically() -> None:
-    nb: nbf.NotebookNode = nbf.v4.new_notebook()
-    nb["cells"] = [
-        nbf.v4.new_raw_cell(r"\renewcommand{\contentsname}{Table of Contents}"),
-        nbf.v4.new_raw_cell(r"\tableofcontents"),
-        nbf.v4.new_markdown_cell("# Introduction"),
-        nbf.v4.new_markdown_cell("{{introduction}}"),
-    ]
+nb: nbf.NotebookNode = nbf.v4.new_notebook()
+nb["cells"] = [
+    nbf.v4.new_raw_cell(r"\renewcommand{\contentsname}{Table of Contents}"),
+    nbf.v4.new_raw_cell(r"\tableofcontents"),
+    nbf.v4.new_markdown_cell("# Introduction"),
+    nbf.v4.new_markdown_cell("{{introduction}}"),
+]
 
-    output_path: Path = Path("tests/test_nb_programatically.ipynb")
+output_path: Path = Path("tests/test_nb_programatically.ipynb")
 
-    introduction: str = "This is a ***test***, don't mind me."
-    render_nb(
-        template_nb=nb,
-        output_path=output_path,
-        introduction=introduction,
-    )
-    assert output_path.exists()
+introduction: str = "This is a ***test***, don't mind me."
+render_nb(
+    template_nb=nb,
+    output_path=output_path,
+    introduction=introduction,
+)
 ```
+
+#### Additional Examples
 
 See [tests/test_renderers.py](tests/test_renderers.py) for a few additional examples.
 
